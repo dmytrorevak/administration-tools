@@ -1,0 +1,21 @@
+dist: xenial
+language: python
+python:
+  - 3.7.1
+
+addons:
+  apt:
+    update: true
+
+before_install:
+  - pip install pipenv
+  - pipenv lock -r > requirements.txt
+  - pipenv lock -r --dev > dev_requirements.txt
+
+install:
+  - pip install -r requirements.txt
+  - pip install -r dev_requirements.txt
+
+script:
+  - pylint scripts/
+  - flake8 scripts/
